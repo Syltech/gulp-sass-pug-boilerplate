@@ -49,7 +49,8 @@ L 📜 ftp-config.yaml //store credentials
  L 📁 scss
    L 📁 utils // helpers for scss, will not create new css files
    L 📜 *.scss // will generate new css files in dist/css
+ L 📁 modules // js custom modules
  L 📜 config.yaml
  L 📜 *.pug // will generate new HTML files in dist
- L 📜 *.js // will copy uglyfied version in in dist
+ L 📜 main.js // will be bundled with browserify
 ```
