@@ -26,6 +26,7 @@
     "gulp-sass": "^4.1.0",
     "gulp-uglify": "^3.0.2",
     "node-sass": "^5.0.0",
+    "tinyify": "^3.0.0",
     "vinyl-buffer": "^1.0.1",
     "vinyl-ftp": "^0.6.1",
     "vinyl-source-stream": "^2.0.0"

@@ -40,16 +40,12 @@ const buildJS = (cb) => {
   });
 
   return b
+    .plugin("tinyify")
     .bundle()
-    .pipe(source("app.js"))
+    .pipe(source("main.js"))
     .pipe(buffer())
-    .pipe(uglify())
-    .pipe(dest("dist/main.js"))
+    .pipe(dest("dist/"))
     .pipe(connect.reload());
-  // return src("src/*.js")
-  //   .pipe(uglify())
-  //   .pipe(dest("dist/"))
-  //   .pipe(connect.reload());
 };
 
 const buildCSS = (cb) => {
@@ -97,7 +93,7 @@ const deploy = (config) => {
 };
 
 const watchers = () => {
-  watch("src/*.js", { ignoreInitial: false }, buildJS);
+  watch("src/**/*.js", { ignoreInitial: false }, buildJS);
   watch("src/scss/*.scss", { ignoreInitial: false }, buildCSS);
   watch("src/**/*.pug", { ignoreInitial: false }, buildHTML);
   watch("src/*.yaml", { ignoreInitial: false }, series(loadConfig, buildHTML));
