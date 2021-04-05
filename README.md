@@ -19,12 +19,28 @@ gulp
 ```
 gulp watch
 ```
-
 Starts a server on port 8080 with Hot Modifications Reload
+
+## deploy 
+
+Deploying through FTP (2 environments available)
+
+```
+gulp deployTest
+```
+
+or
+
+```
+gulp deployProd
+```
+
+Host, credentials & paths are stored in file ftp-config.yaml, see ftp-config.example.yaml for structure
 
 ## files & directories
 
 ```
+L 📜 ftp-config.yaml //store credentials
 📁 assets // will be paste in the dist directory
  L 📁 fonts
  L 📁 img
