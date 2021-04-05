@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Syltech/gulp-sass-pug-boilerplate#readme",
   "devDependencies": {
+    "browserify": "^17.0.0",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-connect": "^5.7.0",
@@ -25,7 +26,9 @@
     "gulp-sass": "^4.1.0",
     "gulp-uglify": "^3.0.2",
     "node-sass": "^5.0.0",
-    "vinyl-ftp": "^0.6.1"
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-ftp": "^0.6.1",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "js-yaml": "^4.0.0"

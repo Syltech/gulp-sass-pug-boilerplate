@@ -1,4 +1,7 @@
 const { src, dest, watch, parallel, series } = require("gulp");
+var browserify = require("browserify");
+var source = require("vinyl-source-stream");
+var buffer = require("vinyl-buffer");
 const uglify = require("gulp-uglify");
 const pug = require("gulp-pug");
 const sass = require("gulp-sass");
@@ -32,10 +35,21 @@ const copyAssets = (cb) => {
 };
 
 const buildJS = (cb) => {
-  return src("src/*.js")
+  const b = browserify({
+    entries: "src/main.js",
+  });
+
+  return b
+    .bundle()
+    .pipe(source("app.js"))
+    .pipe(buffer())
     .pipe(uglify())
-    .pipe(dest("dist/"))
+    .pipe(dest("dist/main.js"))
     .pipe(connect.reload());
+  // return src("src/*.js")
+  //   .pipe(uglify())
+  //   .pipe(dest("dist/"))
+  //   .pipe(connect.reload());
 };
 
 const buildCSS = (cb) => {
