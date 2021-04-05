@@ -1,0 +1,11 @@
+prod:
+  FTP_SERVER : ftp.mydomain.org
+  FTP_USER : myuser
+  FTP_PASSWORD : mypassword
+  FTP_PATH : /path/to/prod
+
+test:
+  FTP_SERVER : ftp.mydomain.org
+  FTP_USER : myuser
+  FTP_PASSWORD : mypassword
+  FTP_PATH : /path/to/test

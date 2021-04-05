@@ -6,10 +6,12 @@ const connect = require("gulp-connect");
 const yaml = require("js-yaml");
 const del = require("del");
 const fs = require("fs");
+const ftp = require("vinyl-ftp");
 
 sass.compiler = require("node-sass");
 
 let config;
+let ftpconfig;
 
 const server = (cb) => {
   connect.server({
@@ -21,6 +23,7 @@ const server = (cb) => {
 
 const loadConfig = (cb) => {
   config = yaml.load(fs.readFileSync("./src/config.yaml"));
+  ftpconfig = yaml.load(fs.readFileSync("./ftp-config.yaml"));
   cb();
 };
 
@@ -58,6 +61,27 @@ const cleanAll = () => {
   return del("dist");
 };
 
+const remoteDeployTest = () => {
+  return deploy(ftpconfig.test);
+};
+
+const remoteDeployProd = () => {
+  return deploy(ftpconfig.prod);
+};
+
+const deploy = (config) => {
+  let conn = ftp.create({
+    host: config.FTP_SERVER,
+    user: config.FTP_USER,
+    password: config.FTP_PASSWORD,
+    parallel: 10,
+  });
+
+  return src("dist/**/*", { base: "dist", buffer: false })
+    .pipe(conn.newer(config.FTP_PATH))
+    .pipe(conn.dest(config.FTP_PATH));
+};
+
 const watchers = () => {
   watch("src/*.js", { ignoreInitial: false }, buildJS);
   watch("src/scss/*.scss", { ignoreInitial: false }, buildCSS);
@@ -72,4 +96,8 @@ exports.default = series(
   cleanAll,
   parallel(buildCSS, buildJS, copyAssets, series(loadConfig, buildHTML))
 );
+
 exports.watch = series(server, watchModifications);
+
+exports.deployTest = series(this.default, remoteDeployTest);
+exports.deployProd = series(this.default, remoteDeployProd);
