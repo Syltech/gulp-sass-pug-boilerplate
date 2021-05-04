@@ -14,7 +14,6 @@ const ftp = require("vinyl-ftp");
 sass.compiler = require("node-sass");
 
 let config;
-let ftpconfig;
 
 const server = (cb) => {
   connect.server({
@@ -26,7 +25,6 @@ const server = (cb) => {
 
 const loadConfig = (cb) => {
   config = yaml.load(fs.readFileSync("./src/config.yaml"));
-  ftpconfig = yaml.load(fs.readFileSync("./ftp-config.yaml"));
   cb();
 };
 
@@ -72,10 +70,14 @@ const cleanAll = () => {
 };
 
 const remoteDeployTest = () => {
+  const ftpconfig = yaml.load(fs.readFileSync("./ftp-config.yaml"));
+
   return deploy(ftpconfig.test);
 };
 
 const remoteDeployProd = () => {
+  const ftpconfig = yaml.load(fs.readFileSync("./ftp-config.yaml"));
+
   return deploy(ftpconfig.prod);
 };
 
